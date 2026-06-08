@@ -1,28 +1,17 @@
 
-resource "azurerm_network_security_group" "nsg" {
-  name                = "example-security-group"
-  location            = var.location
-  resource_group_name = var.rg_name
+resource "azurerm_virtual_network" "vnet" {
+  for_each = var.vnets
+  name     = each.value.name
+  location = var.location[each.value.rg_key]
+  resource_group_name = var.rg_name[each.value.rg_key]
+  address_space = each.value.address_space
+  dns_servers = each.value.dns_servers
 }
 
-resource "azurerm_virtual_network" "vnet" {
-  name                = "example-network"
-  location            = var.location
-  resource_group_name = var.rg_name
-  address_space       = ["10.0.0.0/16"]
-  dns_servers         = ["10.0.0.4", "10.0.0.5"]
-
-  subnet {
-    name             = "subnet_app"
-    address_prefixes = ["10.0.1.0/24"]
-    security_group   = azurerm_network_security_group.nsg.id
-
-  }
-
-  subnet {
-    name             = "subnet_db"
-    address_prefixes = ["10.0.2.0/24"]
-    security_group   = azurerm_network_security_group.nsg.id
-  }
-
+resource "azurerm_subnet" "subnets" {
+  for_each = var.subnets
+  name                 = each.value.name
+  resource_group_name  = var.rg_name[each.value.rg_key]
+  virtual_network_name = azurerm_virtual_network.vnet[each.value.vnet_key].name
+  address_prefixes     = each.value.address_prefixes
 }

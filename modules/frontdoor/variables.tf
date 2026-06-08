@@ -1,14 +1,22 @@
 variable "rg_name" {
-  type        = string
+  type        = map(string)
+}
+
+variable "location" {
+  type        = map(string)
 }
 
 variable "fd_profile" {
-  description = "Name of the Azure Front Door profile"
-  type        = string
+  type = map(object({
+    name = string
+    sku = string
+    response_timeout_seconds = number
+    rg_key = string
+  }))
 }
 
 variable "app_hostname" {
-  type        = string
+  type        = map(string)
 }
 
 variable "fd_endpoint" {
@@ -18,11 +26,6 @@ variable "fd_endpoint" {
 
 variable "fd_og_name" {
   description = "Name of the Front Door origin group"
-  type        = string
-}
-
-variable "fd_origin" {
-  description = "Name of the Front Door origin"
   type        = string
 }
 

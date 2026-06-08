@@ -1,15 +1,15 @@
-variable "app_service_plan_name" {
-  type        = string
+variable "rg_name" {
+  type = map(string)
 }
 
 variable "location" {
-  type        = string
+  type = map(string)
 }
 
-variable "rg_name" {
-  type        = string
-}
-
-variable "app_service_name" {
-  type        = string
+variable "app_services" {
+  type = map(object({
+    app_service_plan_name = string
+    app_service_name  = string
+    rg_key = string
+  }))
 }
