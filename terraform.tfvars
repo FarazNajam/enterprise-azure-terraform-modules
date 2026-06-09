@@ -144,3 +144,17 @@ app_configs = {
     rg_key = "flask_app"
   }
 }
+
+########################################
+# VIRTUAL MACHINES
+########################################
+
+nics= {
+  nic01 = {
+    network_interface_name = ""
+    ip_configuration_name = ""
+    subnet_key = ""
+    rg_key = ""
+    private_ip_address_allocation = ""
+  }
+}

@@ -80,3 +80,11 @@ module "app_config" {
   location = module.rg.location
   app_configs = var.app_configs
 }
+
+module "virtual_machines" {
+  source   = "./modules/vms"
+  rg_name  = module.rg.rg_name
+  location = module.rg.location
+  vms = var.vms
+  nics = var.nics
+}
