@@ -11,6 +11,8 @@ provider "azurerm" {
   features {}
 }
 
+data "azurerm_client_config" "current" {}
+
 module "rg" {
   source   = "./modules/resource_group"
   resource_groups = var.resource_groups
@@ -56,3 +58,25 @@ module "db" {
 #  fd_og_name       = var.fd_og_name
 #  fd_route         = var.fd_route
 # }
+
+module "storage_account" {
+  source   = "./modules/storage_account"
+  rg_name  = module.rg.rg_name
+  location = module.rg.location
+  storage_accounts = var.storage_accounts
+}
+
+module "key_vault" {
+  source   = "./modules/key_vault"
+  rg_name  = module.rg.rg_name
+  location = module.rg.location
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  key_vaults = var.key_vaults
+}
+
+module "app_config" {
+  source   = "./modules/app_config"
+  rg_name  = module.rg.rg_name
+  location = module.rg.location
+  app_configs = var.app_configs
+}

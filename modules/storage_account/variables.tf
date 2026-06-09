@@ -1,11 +1,16 @@
-resource "azurerm_storage_account" "example" {
-  name                     = "storageaccountname"
-  resource_group_name      = azurerm_resource_group.example.name
-  location                 = azurerm_resource_group.example.location
-  account_tier             = "Standard"
-  account_replication_type = "GRS"
+variable "rg_name" {
+  type = map(string)
+}
 
-  tags = {
-    environment = "staging"
-  }
+variable "location" {
+  type = map(string)
+}
+
+variable "storage_accounts" {
+  type = map(object({
+    name = string
+    account_tier = string
+    account_replication_type = string
+    rg_key = string
+  }))
 }

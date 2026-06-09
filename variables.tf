@@ -100,11 +100,47 @@ variable "sqldatabases" {
 #  type        = string
 #}
 
+########################################
+# STORAGE ACCOUNT VARIABLES
+########################################
+
 variable "storage_accounts" {
   type = map(object({
     name = string
     account_tier = string
     account_replication_type = string
+    rg_key = string
+  }))
+}
+
+########################################
+# KEY VAULT VARIABLES
+########################################
+
+variable "key_vaults" {
+  type = map(object({
+    name = string
+    enabled_for_disk_encryption = bool
+    soft_delete_retention_days = number
+    purge_protection_enabled = bool
+    sku_name = string
+    rbac_authorization_enabled = bool
+    rg_key = string
+  }))
+}
+
+########################################
+# APP CONFIG VARIABLES
+########################################
+
+variable "app_configs" {
+  type = map(object({
+    name = string
+    sku = string
+    local_auth_enabled         = bool
+    public_network_access      = string
+    purge_protection_enabled   = bool
+    soft_delete_retention_days = number
     rg_key = string
   }))
 }
