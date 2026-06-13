@@ -1,5 +1,6 @@
-resource "azurerm_private_endpoint" "example" {
-  name                = "example-endpoint"
+resource "azurerm_private_endpoint" "private_endpoints" {
+  for_each = var.private_endpoints
+  name                = 
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   subnet_id           = azurerm_subnet.endpoint.id
