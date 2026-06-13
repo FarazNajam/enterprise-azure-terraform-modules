@@ -173,3 +173,16 @@ vms= {
     admin_password = "Faraznajam1985!"
   }
 }
+
+private_endpoints= {
+  pep_kv01 = {
+    name = "p-auea-flaskapp-pep_kv01"
+    private_service_connection = {
+      name = "internal"
+      is_manual_connection = false
+    }
+    rg_key = "flask_app"
+    subnet_key = "subnet_app"
+    kv_key = "key_vault_flaskapp"
+  }
+}

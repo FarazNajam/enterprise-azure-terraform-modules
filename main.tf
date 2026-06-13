@@ -89,3 +89,12 @@ module "virtual_machines" {
   vms = var.vms
   nics = var.nics
 }
+
+module "private_endpoints" {
+  source   = "./modules/private_endpoint"
+  rg_name  = module.rg.rg_name
+  location = module.rg.location
+  subnet_id = module.network.subnet_id
+  private_connection_resource_id = module.key_vault.key_vault_ids
+  private_endpoints = var.private_endpoints
+}

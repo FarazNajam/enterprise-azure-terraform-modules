@@ -10,26 +10,21 @@ variable "subnet_id" {
   type = map(string)
 }
 
-variable "nics" {
+variable "private_connection_resource_id" {
+  type = map(string)
+}
+
+variable "private_endpoints" {
   type = map(object({
-    network_interface_name = string
-    ip_configuration = object({
-      name     = string
-      subnet_key = string
-      private_ip_address_allocation = string
+    name = string
+    private_service_connection = object({
+      name                = string
+      is_manual_connection = bool
     })
-    rg_key = string    
+    rg_key = string
+    subnet_key = string
+    kv_key = string
+
   }))
 }
 
-variable "vms" {
-  type = map(object({
-    name = string
-    nic_key = string
-    rg_key = string
-    vm_size = string
-    computer_name = string
-    admin_username = string
-    admin_password = string
-  }))
-}

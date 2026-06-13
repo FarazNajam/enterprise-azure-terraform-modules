@@ -172,3 +172,16 @@ variable "vms" {
     admin_password = string
   }))
 }
+
+variable "private_endpoints" {
+  type = map(object({
+    name = string
+    private_service_connection = object({
+      name                = string
+      is_manual_connection = bool
+    })
+    rg_key = string
+    subnet_key = string
+    kv_key = string
+  }))
+}
