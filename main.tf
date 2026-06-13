@@ -85,6 +85,7 @@ module "virtual_machines" {
   source   = "./modules/vms"
   rg_name  = module.rg.rg_name
   location = module.rg.location
+  subnet_id = module.network.subnet_id
   vms = var.vms
   nics = var.nics
 }

@@ -150,11 +150,26 @@ app_configs = {
 ########################################
 
 nics= {
-  nic01 = {
-    network_interface_name = ""
-    ip_configuration_name = ""
-    subnet_key = ""
-    rg_key = ""
-    private_ip_address_allocation = ""
+  nic01_vm01 = {
+    network_interface_name = "p-auea-flaskapp-nic01"
+    ip_configuration = {
+      name = "internal"
+      subnet_key = "subnet_app"
+      private_ip_address_allocation = "dynamic"
+    }
+    rg_key = "flask_app"
+  }
+}
+
+vms= {
+  vm01 = {
+    name = "p-auea-flaskapp-vm01"
+    nic_key = "nic01_vm01"
+    subnet_key = "subnet_app"
+    rg_key = "flask_app"
+    vm_size = "Standard_B2s"
+    computer_name = "vm01"
+    admin_username = "admin01"
+    admin_password = "Faraznajam1985!"
   }
 }

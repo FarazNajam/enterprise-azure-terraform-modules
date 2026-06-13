@@ -5,9 +5,9 @@ resource "azurerm_network_interface" "nis" {
   resource_group_name = var.rg_name[each.value.rg_key]
 
   ip_configuration {
-    name                          = each.value.ip_configuration_name
-    subnet_id                     = azurerm_subnet.subnets[each.value.subnet_key].id
-    private_ip_address_allocation = each.value.private_ip_address_allocation
+    name                          = each.value.ip_configuration.name
+    subnet_id                     = var.subnet_id[each.value.ip_configuration.subnet_key]
+    private_ip_address_allocation = each.value.ip_configuration.private_ip_address_allocation
   }
 }
 

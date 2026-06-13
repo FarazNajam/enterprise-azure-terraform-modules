@@ -152,10 +152,12 @@ variable "app_configs" {
 variable "nics" {
   type = map(object({
     network_interface_name = string
-    ip_configuration_name = string
-    subnet_key = string
+    ip_configuration = object({
+      name                = string
+      subnet_key            = string
+      private_ip_address_allocation = string
+    })
     rg_key = string
-    private_ip_address_allocation = string
   }))
 }
 
