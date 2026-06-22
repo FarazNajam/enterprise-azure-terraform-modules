@@ -1,0 +1,9 @@
+Flask==3.1.1
+gunicorn
+Flask==3.1.1
+gunicorn
+pyodbc
+azure-identity
+azure-keyvault-secrets
+azure-appconfiguration
+azure-storage-blob

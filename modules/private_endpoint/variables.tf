@@ -6,11 +6,11 @@ variable "location" {
   type = map(string)
 }
 
-variable "subnet_id" {
+variable "subnet_ids" {
   type = map(string)
 }
 
-variable "private_connection_resource_id" {
+variable "private_connection_resource_ids" {
   type = map(string)
 }
 
@@ -23,8 +23,7 @@ variable "private_endpoints" {
     })
     rg_key = string
     subnet_key = string
-    kv_key = string
-
+    resource_key = string
   }))
 }
 

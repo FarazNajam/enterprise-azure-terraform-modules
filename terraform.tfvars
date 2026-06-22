@@ -9,9 +9,9 @@ resource_groups = {
     tags = {
     environment = "prod"
     owner       = "cloud-team"
-    managed_by  = "terraform"
+    deployment  = "terraform"
     }
-  }  
+  }   
 }
 ########################################
 # APP SERVICE
@@ -130,6 +130,36 @@ key_vaults = {
 }
 
 ########################################
+# KEY VAULT SECRETS
+########################################
+
+key_vault_secrets = {
+  secret_sqlserver_ids = {
+    name          = "sqlserverid"
+    sqlserver_key = "sqlserver_flaskapp"
+    key_vault_key = "key_vault_flaskapp"
+  }
+
+    secret_sqlserver_fqdns = {
+    name          = "sqlserverfqdn"
+    sqlserver_key = "sqlserver_flaskapp"
+    key_vault_key = "key_vault_flaskapp"
+  }
+
+    secret_database_ids= {
+    name          = "databaseid"
+    sqlserver_key = "sqlserver_flaskapp"
+    key_vault_key = "key_vault_flaskapp"
+  }
+
+    secret_database_names = {
+    name          = "databasename"
+    sqlserver_key = "sqlserver_flaskapp"
+    key_vault_key = "key_vault_flaskapp"
+  }
+}
+
+########################################
 # APP CONFIG
 ########################################
 
@@ -155,24 +185,26 @@ nics= {
     ip_configuration = {
       name = "internal"
       subnet_key = "subnet_app"
-      private_ip_address_allocation = "dynamic"
+      private_ip_address_allocation = "Dynamic"
     }
     rg_key = "flask_app"
   }
 }
 
-vms= {
-  vm01 = {
-    name = "p-auea-flaskapp-vm01"
-    nic_key = "nic01_vm01"
-    subnet_key = "subnet_app"
-    rg_key = "flask_app"
-    vm_size = "Standard_B2s"
-    computer_name = "vm01"
-    admin_username = "admin01"
-    admin_password = "Faraznajam1985!"
-  }
-}
+vms = {}
+
+#vms= {
+#  vm01 = {
+#    name = "p-auea-flaskapp-vm01"
+#    nic_key = "nic01_vm01"
+#    subnet_key = "subnet_app"
+#    rg_key = "flask_app"
+#    vm_size = "Standard_B2s"
+#    computer_name = "vm01"
+#    admin_username = "admin01"
+#    admin_password = "Faraznajam1985!"
+#  }
+#}
 
 private_endpoints= {
   pep_kv01 = {
@@ -183,6 +215,6 @@ private_endpoints= {
     }
     rg_key = "flask_app"
     subnet_key = "subnet_app"
-    kv_key = "key_vault_flaskapp"
+    resource_key = "key_vault_flaskapp"
   }
 }

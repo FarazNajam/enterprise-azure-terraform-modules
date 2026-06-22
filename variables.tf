@@ -130,6 +130,18 @@ variable "key_vaults" {
 }
 
 ########################################
+# KEY VAULT SECRETS
+########################################
+
+variable "key_vault_secrets" {
+  type = map(object({
+    name = string
+    sqlserver_key = string
+    key_vault_key = string
+  }))
+}
+
+########################################
 # APP CONFIG VARIABLES
 ########################################
 
@@ -182,6 +194,6 @@ variable "private_endpoints" {
     })
     rg_key = string
     subnet_key = string
-    kv_key = string
+    resource_key = string
   }))
 }
