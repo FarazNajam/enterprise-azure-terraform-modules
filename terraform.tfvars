@@ -22,6 +22,7 @@ app_services = {
     app_service_plan_name = "asp-prod-aue-01"
     app_service_name  = "app-prod-aue-01"
     rg_key = "flask_app"
+    subnet_key = "subnet_app"
   }
 }
 

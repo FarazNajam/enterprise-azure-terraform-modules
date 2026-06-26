@@ -48,6 +48,7 @@ variable "app_services" {
     app_service_plan_name = string
     app_service_name  = string
     rg_key = string
+    subnet_key = string
   }))
 }
 ########################################

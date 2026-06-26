@@ -38,6 +38,8 @@ module "app" {
   rg_name  = module.rg.rg_name
   location = module.rg.location
   app_services = var.app_services
+  subnet_id = module.network.subnet_id
+
 }
 
 module "db" {
