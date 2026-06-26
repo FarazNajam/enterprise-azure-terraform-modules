@@ -28,10 +28,8 @@ app_services = {
 
 app_services_vnet_integration = {
   flask-app = {
-    appservice_key = "flaska-app"
-    subnet_key  = "app-prod-aue-01"
-    rg_key = "flask_app"
-    subnet_key = "subnet_app"
+    appservice_key = "flask-app"
+    subnet_key  = "subnet_app"
   }
 }
 

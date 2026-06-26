@@ -51,6 +51,14 @@ variable "app_services" {
     subnet_key = string
   }))
 }
+
+variable "app_services_vnet_integration" {
+  type = map(object({
+    appservice_key = string
+    subnet_key  = string
+  }))
+}
+
 ########################################
 # DB VARIABLES
 ########################################
