@@ -42,6 +42,12 @@ module "app" {
   subnet_id = module.network.subnet_id
 }
 
+module "identity" {
+  source   = "./modules/identity"
+  principals_ids  = module.app.principal_ids
+  identity = var.identity 
+}
+
 module "db" {
   source   = "./modules/database"
   rg_name  = module.rg.rg_name
