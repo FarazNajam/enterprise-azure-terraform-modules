@@ -48,8 +48,28 @@ variable "app_services" {
     app_service_plan_name = string
     app_service_name  = string
     rg_key = string
+    subnet_key = string
   }))
 }
+
+variable "app_services_vnet_integration" {
+  type = map(object({
+    appservice_key = string
+    subnet_key  = string
+  }))
+}
+
+########################################
+# IDENTITY
+########################################
+variable "identity" {
+  type = map(object({
+    scope = string
+    role_definition_id  = string
+    appservice_key = string
+  }))
+}
+
 ########################################
 # DB VARIABLES
 ########################################
@@ -130,6 +150,18 @@ variable "key_vaults" {
 }
 
 ########################################
+# KEY VAULT SECRETS
+########################################
+
+variable "key_vault_secrets" {
+  type = map(object({
+    name = string
+    sqlserver_key = string
+    key_vault_key = string
+  }))
+}
+
+########################################
 # APP CONFIG VARIABLES
 ########################################
 
@@ -170,5 +202,18 @@ variable "vms" {
     computer_name = string
     admin_username = string
     admin_password = string
+  }))
+}
+
+variable "private_endpoints" {
+  type = map(object({
+    name = string
+    private_service_connection = object({
+      name                = string
+      is_manual_connection = bool
+    })
+    rg_key = string
+    subnet_key = string
+    resource_key = string
   }))
 }

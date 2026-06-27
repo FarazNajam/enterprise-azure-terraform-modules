@@ -9,9 +9,9 @@ resource_groups = {
     tags = {
     environment = "prod"
     owner       = "cloud-team"
-    managed_by  = "terraform"
+    deployment  = "terraform"
     }
-  }  
+  }   
 }
 ########################################
 # APP SERVICE
@@ -22,6 +22,14 @@ app_services = {
     app_service_plan_name = "asp-prod-aue-01"
     app_service_name  = "app-prod-aue-01"
     rg_key = "flask_app"
+    subnet_key = "subnet_app"
+  }
+}
+
+app_services_vnet_integration = {
+  flask-app = {
+    appservice_key = "flask-app"
+    subnet_key  = "subnet_app"
   }
 }
 
@@ -130,6 +138,36 @@ key_vaults = {
 }
 
 ########################################
+# KEY VAULT SECRETS
+########################################
+
+key_vault_secrets = {
+  secret_sqlserver_ids = {
+    name          = "sqlserverid"
+    sqlserver_key = "sqlserver_flaskapp"
+    key_vault_key = "key_vault_flaskapp"
+  }
+
+    secret_sqlserver_fqdns = {
+    name          = "sqlserverfqdn"
+    sqlserver_key = "sqlserver_flaskapp"
+    key_vault_key = "key_vault_flaskapp"
+  }
+
+    secret_database_ids= {
+    name          = "databaseid"
+    sqlserver_key = "sqlserver_flaskapp"
+    key_vault_key = "key_vault_flaskapp"
+  }
+
+    secret_database_names = {
+    name          = "databasename"
+    sqlserver_key = "sqlserver_flaskapp"
+    key_vault_key = "key_vault_flaskapp"
+  }
+}
+
+########################################
 # APP CONFIG
 ########################################
 
@@ -155,21 +193,36 @@ nics= {
     ip_configuration = {
       name = "internal"
       subnet_key = "subnet_app"
-      private_ip_address_allocation = "dynamic"
+      private_ip_address_allocation = "Dynamic"
     }
     rg_key = "flask_app"
   }
 }
 
-vms= {
-  vm01 = {
-    name = "p-auea-flaskapp-vm01"
-    nic_key = "nic01_vm01"
-    subnet_key = "subnet_app"
+vms = {}
+
+#vms= {
+#  vm01 = {
+#    name = "p-auea-flaskapp-vm01"
+#    nic_key = "nic01_vm01"
+#    subnet_key = "subnet_app"
+#    rg_key = "flask_app"
+#    vm_size = "Standard_B2s"
+#    computer_name = "vm01"
+#    admin_username = "admin01"
+#    admin_password = "Faraznajam1985!"
+#  }
+#}
+
+private_endpoints= {
+  pep_kv01 = {
+    name = "p-auea-flaskapp-pep_kv01"
+    private_service_connection = {
+      name = "internal"
+      is_manual_connection = false
+    }
     rg_key = "flask_app"
-    vm_size = "Standard_B2s"
-    computer_name = "vm01"
-    admin_username = "admin01"
-    admin_password = "Faraznajam1985!"
+    subnet_key = "subnet_app"
+    resource_key = "key_vault_flaskapp"
   }
 }

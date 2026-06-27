@@ -1,5 +1,6 @@
-resource "azurerm_user_assigned_identity" "app_identity" {
-  name                = var.identity_name
-  location            = var.location
-  resource_group_name = var.rg_name
+resource "azurerm_role_assignment" "role_assignment" {
+  for_each = var.identity
+  scope              = each.value.scope
+  role_definition_id = each.value.role_definition_id
+  principal_id       = var.principal_ids[each.value.principal_key]
 }
