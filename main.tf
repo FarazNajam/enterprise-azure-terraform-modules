@@ -38,6 +38,8 @@ module "app" {
   rg_name  = module.rg.rg_name
   location = module.rg.location
   app_services = var.app_services
+  app_services_vnet_integration = var.app_services_vnet_integration
+  subnet_id = module.network.subnet_id
 }
 
 module "db" {
@@ -72,6 +74,8 @@ module "key_vault" {
   location = module.rg.location
   tenant_id = data.azurerm_client_config.current.tenant_id
   key_vaults = var.key_vaults
+  key_vault_secrets = var.key_vault_secrets
+  secret_sqlserver_ids = module.db.sqlserver_ids
 }
 
 module "app_config" {
@@ -90,14 +94,14 @@ module "virtual_machines" {
   nics = var.nics
 }
 
-module "private_endpoints" {
-  source   = "./modules/private_endpoint"
-  rg_name  = module.rg.rg_name
-  location = module.rg.location
-  subnet_id = module.network.subnet_id
-  vms = var.vms
-  nics = var.nics
-}
+#module "private_endpoints" {
+#  source   = "./modules/private_endpoint"
+#  rg_name  = module.rg.rg_name
+#  location = module.rg.location
+#  subnet_id = module.network.subnet_id
+#  vms = var.vms
+#  nics = var.nics
+#}
 
 module "identity" {
   source ="./modules/identity"

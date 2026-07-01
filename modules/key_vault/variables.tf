@@ -2,7 +2,6 @@ variable "rg_name" {
   type = map(string)
 }
 
-
 variable "tenant_id" {
   type = string
 }
@@ -12,18 +11,6 @@ variable "location" {
 }
 
 variable "secret_sqlserver_ids" {
-  type = map(string)
-}
-
-variable "secret_sqlserver_fqdns" {
-  type = map(string)
-}
-
-variable "secret_database_ids" {
-  type = map(string)
-}
-
-variable "secret_database_names" {
   type = map(string)
 }
 

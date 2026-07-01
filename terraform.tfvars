@@ -226,24 +226,3 @@ private_endpoints= {
     resource_key = "key_vault_flaskapp"
   }
 }
-
-identity = {
- kv-secrets-reader = {
-  principal_key = "flask-app"
-  scope = module.key_vault.key_vault_ids
-  role_definition)name = "Key Vault Secrets User"
- }
-
- storage-reader = {
-  principal_key = "flask-app"
-  scope = module.storage_account.storage_account_ids
-  role_definition)name = "Storage Blob Data Reader"
- }
-
-  database-reader = {
-  principal_key = "flask-app"
-  scope = module.database.database_ids
-  role_definition)name = "Storage Blob Data Reader"
- }
-
-}
