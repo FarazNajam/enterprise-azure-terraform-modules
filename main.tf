@@ -42,6 +42,12 @@ module "app" {
   subnet_id = module.network.subnet_id
 }
 
+module "identity" {
+  source   = "./modules/identity"
+  principal_ids  = module.app.principal_ids
+  identity = var.identity 
+}
+
 module "db" {
   source   = "./modules/database"
   rg_name  = module.rg.rg_name
@@ -76,6 +82,10 @@ module "key_vault" {
   key_vaults = var.key_vaults
   key_vault_secrets = var.key_vault_secrets
   secret_sqlserver_ids = module.db.sqlserver_ids
+  secret_sqlserver_fqdns = module.db.sqlserver_fqdns
+  secret_database_ids = module.db.database_ids
+  secret_database_names = module.db.database_names
+
 }
 
 module "app_config" {
@@ -94,17 +104,26 @@ module "virtual_machines" {
   nics = var.nics
 }
 
-#module "private_endpoints" {
-#  source   = "./modules/private_endpoint"
-#  rg_name  = module.rg.rg_name
-#  location = module.rg.location
-#  subnet_id = module.network.subnet_id
-#  vms = var.vms
-#  nics = var.nics
-#}
+module "private_endpoints" {
+  source   = "./modules/private_endpoint"
+  rg_name  = module.rg.rg_name
+  location = module.rg.location
+  subnet_ids = module.network.subnet_id
+  
+  private_connection_resource_ids = merge(
+  module.key_vault.key_vault_ids)
 
-module "identity" {
-  source ="./modules/identity"
-  identity = local.identity
-  principal_ids = module.app.principal_ids
+  #private_connection_resource_ids = merge(
+  #module.key_vault.key_vault_ids,
+  #module.storage_account.storage_account_ids,
+  #module.db.database_ids)
+
+  private_endpoints = var.private_endpoints
+}
+
+module "service_bus" {
+  source   = "./modules/service_bus"
+  rg_name  = module.rg.rg_name
+  location = module.rg.location
+  service_bus = var.service_bus
 }

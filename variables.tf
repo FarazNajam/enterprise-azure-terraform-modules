@@ -60,6 +60,17 @@ variable "app_services_vnet_integration" {
 }
 
 ########################################
+# IDENTITY
+########################################
+variable "identity" {
+  type = map(object({
+    scope = string
+    role_definition_id  = string
+    principal_key = string
+  }))
+}
+
+########################################
 # DB VARIABLES
 ########################################
 
@@ -204,5 +215,13 @@ variable "private_endpoints" {
     rg_key = string
     subnet_key = string
     resource_key = string
+  }))
+}
+
+variable "service_bus" {
+  type = map(object({
+    name = string
+    sku = string
+    rg_key = string
   }))
 }

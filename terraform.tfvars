@@ -226,3 +226,11 @@ private_endpoints= {
     resource_key = "key_vault_flaskapp"
   }
 }
+
+service_bus = {
+  service_bus_flaskapp = {
+    name = "p-auea-flaskapp-servicebus01"
+    sku = "standard"
+    rg_key = "flask_app"
+  }
+}
