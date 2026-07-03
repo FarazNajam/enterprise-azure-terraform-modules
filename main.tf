@@ -42,10 +42,10 @@ module "app" {
   subnet_id = module.network.subnet_id
 }
 
-module "identity" {
-  source   = "./modules/identity"
+module "role_assignments" {
+  source   = "./modules/role_assignments"
   principal_ids  = module.app.principal_ids
-  identity = var.identity 
+  role_assignments  = local.role_assignments
 }
 
 module "db" {
@@ -85,7 +85,6 @@ module "key_vault" {
   secret_sqlserver_fqdns = module.db.sqlserver_fqdns
   secret_database_ids = module.db.database_ids
   secret_database_names = module.db.database_names
-
 }
 
 module "app_config" {
@@ -108,7 +107,7 @@ module "private_endpoints" {
   source   = "./modules/private_endpoint"
   rg_name  = module.rg.rg_name
   location = module.rg.location
-  subnet_ids = module.network.subnet_id
+  subnet_id = module.network.subnet_id
   
   private_connection_resource_ids = merge(
   module.key_vault.key_vault_ids)

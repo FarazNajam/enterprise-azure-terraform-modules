@@ -1,8 +1,9 @@
 resource "azurerm_private_endpoint" "example" {
-  name                = "example-endpoint"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-  subnet_id           = azurerm_subnet.endpoint.id
+  for_each = var.private_endpoints
+  name                = each.value.name
+  location            = var.location[each.value.rg_key]
+  resource_group_name = var.rg_name[each.value.rg_key]
+  subnet_id           = var.subnet_id[each.value.subnet_key]
 
   private_service_connection {
     name                           = each.value.private_service_connection.name
@@ -11,3 +12,4 @@ resource "azurerm_private_endpoint" "example" {
     subresource_names = ["vault"]
   }
 }
+

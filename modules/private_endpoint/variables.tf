@@ -6,7 +6,7 @@ variable "location" {
   type = map(string)
 }
 
-variable "subnet_ids" {
+variable "subnet_id" {
   type = map(string)
 }
 

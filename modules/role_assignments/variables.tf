@@ -1,4 +1,4 @@
-variable "identity" {
+variable "role_assignments" {
   type = map(object({
     principal_key = string
     scope = string

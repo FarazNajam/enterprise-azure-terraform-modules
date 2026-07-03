@@ -14,6 +14,18 @@ variable "secret_sqlserver_ids" {
   type = map(string)
 }
 
+variable "secret_sqlserver_fqdns" {
+  type = map(string)
+}
+
+variable "secret_database_ids" {
+  type = map(string)
+}
+
+variable "secret_database_names" {
+  type = map(string)
+}
+
 variable "key_vaults" {
   type = map(object({
     name = string

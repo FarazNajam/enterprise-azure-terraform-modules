@@ -54,11 +54,16 @@ nsgs = {
 }
 
 subnets = {
-  subnet_app = {
+  subnet_appsvc = {
     name = "subnet_app"
     address_prefixes = ["10.0.1.0/24"]
     vnet_key = "vnet_flaskapp"
     rg_key = "flask_app"
+
+    delegation = {
+    name    = "webapp"
+    service = "Microsoft.Web/serverFarms"
+    }
   }
 
   subnet_db = {
@@ -230,7 +235,7 @@ private_endpoints= {
 service_bus = {
   service_bus_flaskapp = {
     name = "p-auea-flaskapp-servicebus01"
-    sku = "standard"
+    sku = "Basic"
     rg_key = "flask_app"
   }
 }

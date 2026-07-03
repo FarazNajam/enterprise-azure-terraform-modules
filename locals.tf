@@ -1,5 +1,5 @@
 locals {
-    identity = {
+    role_assignments = {
  kv-secrets-reader = {
   principal_key = "flask-app"
   scope = module.key_vault.key_vault_ids["key_vault_flaskapp"]

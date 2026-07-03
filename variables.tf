@@ -32,13 +32,17 @@ variable "nsgs" {
 
 variable "subnets" {
   type = map(object({
-    name = string
-    address_prefixes  = list(string)
-    vnet_key = string
-    rg_key = string
+    name               = string
+    address_prefixes   = list(string)
+    vnet_key           = string
+    rg_key             = string
+
+    delegation = optional(object({
+      name    = string
+      service = string
+    }))
   }))
 }
-
 ########################################
 # APP VARIABLES
 ########################################
@@ -56,17 +60,6 @@ variable "app_services_vnet_integration" {
   type = map(object({
     appservice_key = string
     subnet_key  = string
-  }))
-}
-
-########################################
-# IDENTITY
-########################################
-variable "identity" {
-  type = map(object({
-    scope = string
-    role_definition_id  = string
-    principal_key = string
   }))
 }
 
@@ -225,3 +218,4 @@ variable "service_bus" {
     rg_key = string
   }))
 }
+
