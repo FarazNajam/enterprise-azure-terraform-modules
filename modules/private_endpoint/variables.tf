@@ -10,7 +10,23 @@ variable "subnet_id" {
   type = map(string)
 }
 
+variable "sqlserver_ids" {
+  type = map(string)
+}
+
+variable "keyvault_ids" {
+  type = map(string)
+}
+
 variable "private_connection_resource_ids" {
+  type = map(string)
+}
+
+variable "sqlserver_ids" {
+  type = map(string)
+}
+
+variable "keyvault_ids" {
   type = map(string)
 }
 
@@ -24,6 +40,7 @@ variable "private_endpoints" {
     rg_key = string
     subnet_key = string
     resource_key = string
+    subresource_names = list(string)
   }))
 }
 

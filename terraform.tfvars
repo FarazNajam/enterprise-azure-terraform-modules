@@ -54,7 +54,7 @@ nsgs = {
 }
 
 subnets = {
-  subnet_appsvc = {
+  subnet_app = {
     name = "subnet_app"
     address_prefixes = ["10.0.1.0/24"]
     vnet_key = "vnet_flaskapp"
@@ -145,32 +145,6 @@ key_vaults = {
 ########################################
 # KEY VAULT SECRETS
 ########################################
-
-key_vault_secrets = {
-  secret_sqlserver_ids = {
-    name          = "sqlserverid"
-    sqlserver_key = "sqlserver_flaskapp"
-    key_vault_key = "key_vault_flaskapp"
-  }
-
-    secret_sqlserver_fqdns = {
-    name          = "sqlserverfqdn"
-    sqlserver_key = "sqlserver_flaskapp"
-    key_vault_key = "key_vault_flaskapp"
-  }
-
-    secret_database_ids= {
-    name          = "databaseid"
-    sqlserver_key = "sqlserver_flaskapp"
-    key_vault_key = "key_vault_flaskapp"
-  }
-
-    secret_database_names = {
-    name          = "databasename"
-    sqlserver_key = "sqlserver_flaskapp"
-    key_vault_key = "key_vault_flaskapp"
-  }
-}
 
 ########################################
 # APP CONFIG

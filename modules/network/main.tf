@@ -5,7 +5,6 @@ resource "azurerm_virtual_network" "vnet" {
   location = var.location[each.value.rg_key]
   resource_group_name = var.rg_name[each.value.rg_key]
   address_space = each.value.address_space
-  dns_servers = each.value.dns_servers
 }
 
 resource "azurerm_subnet" "subnets" {

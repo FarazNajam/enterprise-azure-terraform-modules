@@ -31,6 +31,8 @@ module "nsg" {
   rg_name = module.rg.rg_name
   location = module.rg.location
   nsgs = var.nsgs
+  subnet_id = module.network.subnet_id
+  nsg_associations = var.nsg_associations
 }
 
 module "app" {
@@ -80,11 +82,6 @@ module "key_vault" {
   location = module.rg.location
   tenant_id = data.azurerm_client_config.current.tenant_id
   key_vaults = var.key_vaults
-  key_vault_secrets = var.key_vault_secrets
-  secret_sqlserver_ids = module.db.sqlserver_ids
-  secret_sqlserver_fqdns = module.db.sqlserver_fqdns
-  secret_database_ids = module.db.database_ids
-  secret_database_names = module.db.database_names
 }
 
 module "app_config" {

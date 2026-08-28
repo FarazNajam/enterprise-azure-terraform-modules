@@ -7,5 +7,4 @@ resource "azurerm_app_configuration" "app_config" {
   local_auth_enabled         = each.value.local_auth_enabled
   public_network_access      = each.value.public_network_access
   purge_protection_enabled   = each.value.purge_protection_enabled
-  soft_delete_retention_days = each.value.soft_delete_retention_days
 }

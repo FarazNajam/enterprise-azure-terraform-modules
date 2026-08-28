@@ -10,22 +10,6 @@ variable "location" {
   type = map(string)
 }
 
-variable "secret_sqlserver_ids" {
-  type = map(string)
-}
-
-variable "secret_sqlserver_fqdns" {
-  type = map(string)
-}
-
-variable "secret_database_ids" {
-  type = map(string)
-}
-
-variable "secret_database_names" {
-  type = map(string)
-}
-
 variable "key_vaults" {
   type = map(object({
     name = string
@@ -37,12 +21,3 @@ variable "key_vaults" {
     rg_key = string
   }))
 }
-
-variable "key_vault_secrets" {
-  type = map(object({
-    name = string
-    sqlserver_key = string
-    key_vault_key = string
-  }))
-
-}  

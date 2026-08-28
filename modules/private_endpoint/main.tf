@@ -9,7 +9,7 @@ resource "azurerm_private_endpoint" "example" {
     name                           = each.value.private_service_connection.name
     private_connection_resource_id = var.private_connection_resource_ids[each.value.resource_key]
     is_manual_connection           = each.value.private_service_connection.is_manual_connection
-    subresource_names = ["vault"]
+    subresource_names = each.value.subresource_names
   }
 }
 

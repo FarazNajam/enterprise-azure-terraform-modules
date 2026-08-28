@@ -10,7 +10,6 @@ variable "vnets" {
   type = map(object({
     name          = string
     address_space = list(string)
-    dns_servers   = list(string)
     rg_key = string
   }))
 }

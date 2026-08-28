@@ -12,3 +12,14 @@ variable "rg_name" {
 variable "location" {
   type = map(string)
 }
+
+variable "nsg_associations" {
+  type = map(object({
+    subnet_key = string
+    nsg_key    = string
+  }))
+}
+
+variable "subnet_id" {
+  type = map(string)
+}

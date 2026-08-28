@@ -11,9 +11,3 @@ resource "azurerm_key_vault" "key_vault" {
   rbac_authorization_enabled = each.value.rbac_authorization_enabled
 }
 
-resource "azurerm_key_vault_secret" "kv_secrets" {
-  for_each = var.key_vault_secrets
-  name         = each.value.name
-  value        = var.secret_sqlserver_ids[each.value.sqlserver_key]
-  key_vault_id = azurerm_key_vault.key_vault[each.value.key_vault_key].id
-}

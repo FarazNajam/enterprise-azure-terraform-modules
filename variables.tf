@@ -30,6 +30,13 @@ variable "nsgs" {
   }))
 }
 
+variable "nsg_associations" {
+  type = map(object({
+    subnet_key = string
+    nsg_key    = string
+  }))
+}
+
 variable "subnets" {
   type = map(object({
     name               = string
@@ -139,18 +146,6 @@ variable "key_vaults" {
     sku_name = string
     rbac_authorization_enabled = bool
     rg_key = string
-  }))
-}
-
-########################################
-# KEY VAULT SECRETS
-########################################
-
-variable "key_vault_secrets" {
-  type = map(object({
-    name = string
-    sqlserver_key = string
-    key_vault_key = string
   }))
 }
 
