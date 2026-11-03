@@ -105,15 +105,8 @@ module "private_endpoints" {
   rg_name  = module.rg.rg_name
   location = module.rg.location
   subnet_id = module.network.subnet_id
-  
   private_connection_resource_ids = merge(
   module.key_vault.key_vault_ids)
-
-  #private_connection_resource_ids = merge(
-  #module.key_vault.key_vault_ids,
-  #module.storage_account.storage_account_ids,
-  #module.db.database_ids)
-
   private_endpoints = var.private_endpoints
 }
 
