@@ -76,11 +76,11 @@ variable "app_services_vnet_integration" {
 
 variable "sqlservers" {
   type = map(object({
-    name           = string
-    version        = string
-    admin_login    = string
-    admin_password = string
-    rg_key         = string
+    name = string
+    version = string
+    entra_admin_login  = string
+    entra_admin_object_id = string
+    rg_key = string
   }))
 }
 
