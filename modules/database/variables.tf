@@ -6,10 +6,6 @@ variable "location" {
   type        = map(string)
 }
 
-variable "tenant_id" {
-  type = string
-}
-
 variable "sqlservers" {
   type = map(object({
     name = string
