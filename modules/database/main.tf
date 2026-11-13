@@ -8,7 +8,7 @@ resource "azurerm_mssql_server" "mssql_server" {
   azuread_administrator {
     login_username              = each.value.entra_admin_login
     object_id                   = each.value.entra_admin_object_id
-    tenant_id                   = var.tenant_id
+    tenant_id                   = data.azurerm_client_config.current.tenant_id
     azuread_authentication_only = true
   }
 }
