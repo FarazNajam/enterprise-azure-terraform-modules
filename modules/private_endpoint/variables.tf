@@ -22,14 +22,6 @@ variable "private_connection_resource_ids" {
   type = map(string)
 }
 
-variable "sqlserver_ids" {
-  type = map(string)
-}
-
-variable "keyvault_ids" {
-  type = map(string)
-}
-
 variable "private_endpoints" {
   type = map(object({
     name = string
