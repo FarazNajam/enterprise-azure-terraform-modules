@@ -4,8 +4,13 @@ resource "azurerm_mssql_server" "mssql_server" {
   resource_group_name          = var.rg_name[each.value.rg_key]
   location                     = var.location[each.value.rg_key]
   version                      = each.value.version
-  administrator_login          = each.value.admin_login
-  administrator_login_password = each.value.admin_password
+  
+  azuread_administrator {
+    login_username              = each.value.entra_admin_login
+    object_id                   = each.value.entra_admin_object_id
+    tenant_id                   = var.tenant_id
+    azuread_authentication_only = true
+  }
 }
 
 resource "azurerm_mssql_database" "mssql_db" {

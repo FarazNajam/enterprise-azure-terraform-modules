@@ -4,14 +4,14 @@
 
 resource_groups = {
   flask_app = {
-    name = "rg-prod-aue-01"
-    location  = "Australia East"
+    name     = "rg-prod-aue-01"
+    location = "Australia East"
     tags = {
-    environment = "prod"
-    owner       = "cloud-team"
-    deployment  = "terraform"
+      environment = "prod"
+      owner       = "cloud-team"
+      deployment  = "terraform"
     }
-  }   
+  }
 }
 ########################################
 # APP SERVICE
@@ -20,16 +20,16 @@ resource_groups = {
 app_services = {
   flask-app = {
     app_service_plan_name = "asp-prod-aue-01"
-    app_service_name  = "app-prod-aue-01"
-    rg_key = "flask_app"
-    subnet_key = "subnet_app"
+    app_service_name      = "app-prod-aue-01"
+    rg_key                = "flask_app"
+    subnet_key            = "subnet_app"
   }
 }
 
 app_services_vnet_integration = {
   flask-app = {
     appservice_key = "flask-app"
-    subnet_key  = "subnet_app"
+    subnet_key     = "subnet_app"
   }
 }
 
@@ -39,38 +39,38 @@ app_services_vnet_integration = {
 
 vnets = {
   vnet_flaskapp = {
-    name = "p-auea-flask_app-vnet"
+    name          = "p-auea-flask_app-vnet"
     address_space = ["10.0.0.0/16"]
-    dns_servers = ["10.0.0.4","10.0.0.5"]
-    rg_key = "flask_app"
+    dns_servers   = ["10.0.0.4", "10.0.0.5"]
+    rg_key        = "flask_app"
   }
 }
 
 nsgs = {
   nsg_flaskapp = {
-    name = "p-auea-flask_app-vnet"
+    name   = "p-auea-flask_app-vnet"
     rg_key = "flask_app"
   }
 }
 
 subnets = {
   subnet_app = {
-    name = "subnet_app"
+    name             = "subnet_app"
     address_prefixes = ["10.0.1.0/24"]
-    vnet_key = "vnet_flaskapp"
-    rg_key = "flask_app"
+    vnet_key         = "vnet_flaskapp"
+    rg_key           = "flask_app"
 
     delegation = {
-    name    = "webapp"
-    service = "Microsoft.Web/serverFarms"
+      name    = "webapp"
+      service = "Microsoft.Web/serverFarms"
     }
   }
 
   subnet_db = {
-    name = "subnet_db"
+    name             = "subnet_db"
     address_prefixes = ["10.0.2.0/24"]
-    vnet_key = "vnet_flaskapp"
-    rg_key = "flask_app"
+    vnet_key         = "vnet_flaskapp"
+    rg_key           = "flask_app"
   }
 }
 
@@ -80,18 +80,18 @@ subnets = {
 
 sqlservers = {
   sqlserver_flaskapp = {
-    name = "p-auea-flaskapp-sqlserver"
-    version = "12.0"
-    admin_login= "sqladmin"
+    name           = "p-auea-flaskapp-sqlserver"
+    version        = "12.0"
+    admin_login    = "sqladmin"
     admin_password = "ReplaceWithSecurePassword123"
-    rg_key = "flask_app"
+    rg_key         = "flask_app"
   }
 }
 
 sqldatabases = {
   sqldatabase_flaskapp = {
-    name = "p-auea-flask_app-sqldatabase01"
-    sku_name = "basic"
+    name       = "p-auea-flask_app-sqldatabase01"
+    sku_name   = "basic"
     server_key = "sqlserver_flaskapp"
   }
 }
@@ -119,10 +119,10 @@ sqldatabases = {
 
 storage_accounts = {
   storage_account_flaskapp = {
-    name = "paueaflaskappstrg"
-    account_tier = "Standard"
+    name                     = "paueaflaskappstrg"
+    account_tier             = "Standard"
     account_replication_type = "LRS"
-    rg_key = "flask_app"
+    rg_key                   = "flask_app"
   }
 }
 
@@ -132,13 +132,13 @@ storage_accounts = {
 
 key_vaults = {
   key_vault_flaskapp = {
-    name = "p-auea-flaskapp-kv01s"
+    name                        = "p-auea-flaskapp-kv01s"
     enabled_for_disk_encryption = true
-    soft_delete_retention_days = 7
-    purge_protection_enabled = false
-    sku_name = "standard"
-    rbac_authorization_enabled = true
-    rg_key = "flask_app"
+    soft_delete_retention_days  = 7
+    purge_protection_enabled    = false
+    sku_name                    = "standard"
+    rbac_authorization_enabled  = true
+    rg_key                      = "flask_app"
   }
 }
 
@@ -152,13 +152,13 @@ key_vaults = {
 
 app_configs = {
   app_config_flaskapp = {
-    name = "p-auea-flaskapp-appconfig01"
-    sku = "standard"
-    local_auth_enabled = false
-    public_network_access = "enabled"
-    purge_protection_enabled = false
+    name                       = "p-auea-flaskapp-appconfig01"
+    sku                        = "standard"
+    local_auth_enabled         = false
+    public_network_access      = "enabled"
+    purge_protection_enabled   = false
     soft_delete_retention_days = 1
-    rg_key = "flask_app"
+    rg_key                     = "flask_app"
   }
 }
 
@@ -166,12 +166,12 @@ app_configs = {
 # VIRTUAL MACHINES
 ########################################
 
-nics= {
+nics = {
   nic01_vm01 = {
     network_interface_name = "p-auea-flaskapp-nic01"
     ip_configuration = {
-      name = "internal"
-      subnet_key = "subnet_app"
+      name                          = "internal"
+      subnet_key                    = "subnet_app"
       private_ip_address_allocation = "Dynamic"
     }
     rg_key = "flask_app"
@@ -193,23 +193,23 @@ vms = {}
 #  }
 #}
 
-private_endpoints= {
+private_endpoints = {
   pep_kv01 = {
     name = "p-auea-flaskapp-pep_kv01"
     private_service_connection = {
-      name = "internal"
+      name                 = "internal"
       is_manual_connection = false
     }
-    rg_key = "flask_app"
-    subnet_key = "subnet_app"
+    rg_key       = "flask_app"
+    subnet_key   = "subnet_app"
     resource_key = "key_vault_flaskapp"
   }
 }
 
 service_bus = {
   service_bus_flaskapp = {
-    name = "p-auea-flaskapp-servicebus01"
-    sku = "Basic"
+    name   = "p-auea-flaskapp-servicebus01"
+    sku    = "Basic"
     rg_key = "flask_app"
   }
 }

@@ -14,47 +14,47 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
 
 module "rg" {
-  source   = "./modules/resource_group"
+  source          = "./modules/resource_group"
   resource_groups = var.resource_groups
 }
 
 module "network" {
   source   = "./modules/network"
-  rg_name = module.rg.rg_name
+  rg_name  = module.rg.rg_name
   location = module.rg.location
-  vnets = var.vnets
-  subnets = var.subnets
+  vnets    = var.vnets
+  subnets  = var.subnets
 }
 
 module "nsg" {
-  source = "./modules/nsg"
-  rg_name = module.rg.rg_name
-  location = module.rg.location
-  nsgs = var.nsgs
-  subnet_id = module.network.subnet_id
+  source           = "./modules/nsg"
+  rg_name          = module.rg.rg_name
+  location         = module.rg.location
+  nsgs             = var.nsgs
+  subnet_id        = module.network.subnet_id
   nsg_associations = var.nsg_associations
 }
 
 module "app" {
-  source   = "./modules/app_service"
-  rg_name  = module.rg.rg_name
-  location = module.rg.location
-  app_services = var.app_services
+  source                        = "./modules/app_service"
+  rg_name                       = module.rg.rg_name
+  location                      = module.rg.location
+  app_services                  = var.app_services
   app_services_vnet_integration = var.app_services_vnet_integration
-  subnet_id = module.network.subnet_id
+  subnet_id                     = module.network.subnet_id
 }
 
 module "role_assignments" {
-  source   = "./modules/role_assignments"
-  principal_ids  = module.app.principal_ids
-  role_assignments  = local.role_assignments
+  source           = "./modules/role_assignments"
+  principal_ids    = module.app.principal_ids
+  role_assignments = local.role_assignments
 }
 
 module "db" {
-  source   = "./modules/database"
-  rg_name  = module.rg.rg_name
-  location = module.rg.location
-  sqlservers = var.sqlservers
+  source       = "./modules/database"
+  rg_name      = module.rg.rg_name
+  location     = module.rg.location
+  sqlservers   = var.sqlservers
   sqldatabases = var.sqldatabases
 }
 
@@ -70,40 +70,40 @@ module "db" {
 # }
 
 module "storage_account" {
-  source   = "./modules/storage_account"
-  rg_name  = module.rg.rg_name
-  location = module.rg.location
+  source           = "./modules/storage_account"
+  rg_name          = module.rg.rg_name
+  location         = module.rg.location
   storage_accounts = var.storage_accounts
 }
 
 module "key_vault" {
-  source   = "./modules/key_vault"
-  rg_name  = module.rg.rg_name
-  location = module.rg.location
-  tenant_id = data.azurerm_client_config.current.tenant_id
+  source     = "./modules/key_vault"
+  rg_name    = module.rg.rg_name
+  location   = module.rg.location
+  tenant_id  = data.azurerm_client_config.current.tenant_id
   key_vaults = var.key_vaults
 }
 
 module "app_config" {
-  source   = "./modules/app_config"
-  rg_name  = module.rg.rg_name
-  location = module.rg.location
+  source      = "./modules/app_config"
+  rg_name     = module.rg.rg_name
+  location    = module.rg.location
   app_configs = var.app_configs
 }
 
 module "virtual_machines" {
-  source   = "./modules/vms"
-  rg_name  = module.rg.rg_name
-  location = module.rg.location
+  source    = "./modules/vms"
+  rg_name   = module.rg.rg_name
+  location  = module.rg.location
   subnet_id = module.network.subnet_id
-  vms = var.vms
-  nics = var.nics
+  vms       = var.vms
+  nics      = var.nics
 }
 
 module "private_endpoints" {
-  source   = "./modules/private_endpoint"
-  rg_name  = module.rg.rg_name
-  location = module.rg.location
+  source    = "./modules/private_endpoint"
+  rg_name   = module.rg.rg_name
+  location  = module.rg.location
   subnet_id = module.network.subnet_id
   private_connection_resource_ids = merge(
   module.key_vault.key_vault_ids)
@@ -111,8 +111,8 @@ module "private_endpoints" {
 }
 
 module "service_bus" {
-  source   = "./modules/service_bus"
-  rg_name  = module.rg.rg_name
-  location = module.rg.location
+  source      = "./modules/service_bus"
+  rg_name     = module.rg.rg_name
+  location    = module.rg.location
   service_bus = var.service_bus
 }
